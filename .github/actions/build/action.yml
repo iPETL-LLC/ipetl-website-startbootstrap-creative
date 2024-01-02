@@ -1,0 +1,8 @@
+name: Build
+description: Builds the project after installing dependencies
+runs:
+  using: "composite"
+  steps:
+    - uses: ./.github/actions/setup-dependencies
+    - run: npm run build
+      shell: bash

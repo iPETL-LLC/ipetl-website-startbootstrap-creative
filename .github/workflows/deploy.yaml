@@ -1,0 +1,20 @@
+name: deploy
+on:
+  workflow_call:
+    inputs:
+      channelId:
+        type: string
+        required: false
+jobs:
+  deploy:
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/build
+      - uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          repoToken: ${{ secrets.GITHUB_TOKEN }}
+          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_IPETL_WEBSITE }}
+          channelId: ${{ inputs.channelId }}
+          projectId: ipetl-website
+          firebaseToolsVersion: '13.0.2'
